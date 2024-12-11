@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Secure File Upload</title>
+	</head>
+	<body>
+	    <center><img style="margin-top:5%;"  src="{{ url_for('static', filename='hat.png')}}"></center>
+		<form action="/upload" method="POST" enctype="multipart/form-data">
+		<center><h2>Secure File Upload</h2></center>
+		<center><input style="text-align:center;margin-top:1%;" type="file" name="file" placeholder="upload"></center>
+		<center><button style="margin-top:1%;margin-bottom:1%;" type="submit">submit</button></center>
+		<center><strong>{{data}}</strong></center>
+		</form>
+	</body>
+</html>
