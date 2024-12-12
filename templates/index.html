@@ -5,38 +5,20 @@
   </head>
   <body>
     <center>
+    <a href="/?file=static/icon.png">
       <img
         style="margin-top: 5%"
-        src="{{ url_for('static', filename='path.png') }}"
+        src="/?file=static/icon.png"
         width="300"
-        height="200"
+        height="300"
       />
-    </center>
-
+    </a>
+  </center>
+  <center><h2>Coming soon!</h2></center>
     <!-- Show welcome message -->
     <center><h2>Welcome, {{ username }}!</h2></center>
     <center><a href="{{ url_for('logout') }}">Logout</a></center>
 
-    <form action="/search" method="GET">
-      <center>
-        <a
-          style="margin-top: 5%; text-decoration: none"
-          href="{{ url_for('static', filename='bug.txt') }}"
-          >Click</a
-        >
-      </center>
-      <center><h2>Find the Vulnerability</h2></center>
-      <center>
-        <input
-          style="margin-top: 1%"
-          type="text"
-          name="search"
-          placeholder="file lookup"
-        />
-      </center>
-      <center>
-        <button style="margin: 10px" type="submit">submit</button>
-      </center>
       <center><p>{{ data }}</p></center>
     </form>
   </body>
