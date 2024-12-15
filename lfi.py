@@ -6,14 +6,19 @@ from datetime import timedelta
 from flask_sqlalchemy import SQLAlchemy
 import os
 import subprocess
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app=Flask(__name__)
 app.secret_key=get_random_bytes(16)
 
-# PostgreSQL configuration
+psqlDB = os.getenv('db')
+
 app.config['SQLALCHEMY_DATABASE_URI']=(
-    'postgresql://lfi_user:FNyh3ckfKWJN7eclwFiuozyU87J7QpMV@dpg-ctcsvfogph6c73av8c8g-a.oregon-postgres.render.com/lfi'
+    psqlDB
 )
+
 if app.config['SQLALCHEMY_DATABASE_URI'].startswith('postgres://'):
     app.config['SQLALCHEMY_DATABASE_URI']=app.config['SQLALCHEMY_DATABASE_URI'].replace('postgres://', 'postgresql://', 1)
 
@@ -32,13 +37,11 @@ app.config['SQLALCHEMY_ENGINE_OPTIONS']={
 
 db=SQLAlchemy(app)
 
-# Models
 class User(db.Model):
     id=db.Column(db.Integer, primary_key=True)
     username=db.Column(db.String(80), unique=True, nullable=False)
     password=db.Column(db.String(200), nullable=False)
 
-# Ensure authentication for restricted routes
 def login_required(f):
     from functools import wraps
     @wraps(f)
@@ -101,29 +104,6 @@ def index():
             return f"Error: {str(e)}", 404
     return render_template("index.html", username=session.get('username'))
 
-
-# @app.route("/file")
-# @login_required
-# def search():
-#     try:
-#         command=request.args.get("file")
-#         file=open(command).read()
-#         return render_template("index.html", data=file, username=session.get('username'))
-#     except Exception as e:
-#         return render_template("index.html", data=f"Error: {str(e)}", username=session.get('username'))
-
-# @app.route("/fix")
-# @login_required
-# def fix():
-#     try:
-#         command=request.args.get("search")
-#         if not command:
-#             return render_template("index.html", data="Please provide a file to read", username=session.get('username'))
-#         fileP=secure_filename(command)
-#         file=open(fileP).read()
-#         return render_template("index.html", data=file, username=session.get('username'))
-#     except Exception as e:
-#         return render_template("index.html", data=f"Error: {str(e)}", username=session.get('username'))
 
 if __name__ == "__main__":
     with app.app_context():

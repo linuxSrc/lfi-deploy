@@ -1,25 +1,84 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>LFI Vuln</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: "Arial", sans-serif;
+        background-color: #f0f0f0;
+        color: #333;
+        line-height: 1.6;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-height: 100vh;
+        padding: 2rem;
+      }
+      .container {
+        background-color: white;
+        padding: 2rem;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        max-width: 600px;
+        width: 100%;
+      }
+      img {
+        max-width: 100%;
+        height: auto;
+        margin-bottom: 1rem;
+        transition: transform 0.3s ease;
+      }
+      img:hover {
+        transform: scale(1.05);
+      }
+      h2 {
+        margin: 1rem 0;
+        color: #1a1a1a;
+      }
+      a {
+        color: #1a1a1a;
+        text-decoration: none;
+        font-weight: bold;
+        transition: color 0.3s ease;
+      }
+      a:hover {
+        color: #333;
+      }
+      .logout {
+        margin-top: 1rem;
+        display: inline-block;
+        padding: 0.5rem 1rem;
+        background-color: #1a1a1a;
+        color: white;
+        border-radius: 4px;
+        transition: background-color 0.3s ease;
+      }
+      .logout:hover {
+        background-color: #333;
+      }
+      p {
+        margin-top: 1rem;
+        font-style: italic;
+      }
+    </style>
   </head>
   <body>
-    <center>
-    <a href="/?file=static/icon.png">
-      <img
-        style="margin-top: 5%"
-        src="/?file=static/icon.png"
-        width="300"
-        height="300"
-      />
-    </a>
-  </center>
-  <center><h2>Coming soon!</h2></center>
-    <!-- Show welcome message -->
-    <center><h2>Welcome, {{ username }}!</h2></center>
-    <center><a href="{{ url_for('logout') }}">Logout</a></center>
-
-      <center><p>{{ data }}</p></center>
-    </form>
+    <div class="container">
+      <a href="/?file=static/icon.png">
+        <img src="/?file=static/icon.png" alt="Icon" width="300" height="300" />
+      </a>
+      <h2>Coming soon!</h2>
+      <h2>Welcome, {{ username }}!</h2>
+      <a href="{{ url_for('logout') }}" class="logout">Logout</a>
+      <p>{{ data }}</p>
+    </div>
   </body>
 </html>
